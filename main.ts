@@ -1,5 +1,7 @@
-import { Editor, EditorPosition, MarkdownView, Plugin, Vault, Workspace, App } from 'obsidian';
+import { Editor, EditorPosition, MarkdownView, Plugin, PluginManifest, Vault, Workspace, App } from 'obsidian';
 
+import  { MetaEditApi } from "metaedit/src/MetaEditApi";
+import MetaEdit from "metaedit/src/main"
 
 function getCurrentLine(editor: Editor, view: MarkdownView) {
 	const lineNumber = editor.getCursor().line
@@ -41,7 +43,9 @@ export default class ThingsLink extends Plugin {
 		this.registerObsidianProtocolHandler("project-id", async (id) => {
 			const projectID = id['x-things-id'];
 			const workspace = this.app.workspace;
-			const meta = this.app.plugins.plugins["metaedit"].api;
+			const manifest : PluginManifest = {id:"something", name:"something else", author:"me", version:"1.0",minAppVersion:"v1", description:""};
+			const metaedit = new MetaEdit(this.app,manifest)
+			const meta =  new MetaEditApi(metaedit);
 			const view = workspace.getActiveViewOfType(MarkdownView);
 			if (view == null) {
 				return;
@@ -61,7 +65,7 @@ export default class ThingsLink extends Plugin {
 						ch:lines[h1Index].length
 					}
 					editor.replaceRange(`\n\n[Things](${thingsDeepLink})`, startRange, endRange);
-					await meta.update("things link", `[Things Project Link](${thingsDeepLink})`, this.app.workspace.getActiveFile());
+					await metaedit.api.update("things link", `[Things Project Link](${thingsDeepLink})`, this.app.workspace.getActiveFile());
 				} else {
 						let startRange: EditorPosition = {
 						line: 0,
