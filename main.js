@@ -386,10 +386,7 @@ var ThingsLink = class extends import_obsidian5.Plugin {
               line: h1Index,
               ch: lines[h1Index].length
             };
-            editor.replaceRange(`
-
-[Things](${thingsDeepLink})`, startRange, endRange);
-            yield metaedit.api.update("things link", `[Things Project Link](${thingsDeepLink})`, this.app.workspace.getActiveFile());
+            yield metaedit.api.update("things_link", `[Things Project Link](${thingsDeepLink})`, this.app.workspace.getActiveFile());
           } else {
             let startRange = {
               line: 0,
@@ -399,9 +396,7 @@ var ThingsLink = class extends import_obsidian5.Plugin {
               line: 0,
               ch: 0
             };
-            editor.replaceRange(`[Things](${thingsDeepLink})
-
-`, startRange, endRange);
+            yield metaedit.api.update("things_link", `[Things Project Link](${thingsDeepLink})`, this.app.workspace.getActiveFile());
           }
         }
       }));
