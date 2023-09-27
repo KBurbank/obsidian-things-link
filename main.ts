@@ -75,7 +75,9 @@ export default class ThingsLink extends Plugin {
 						line: 0,
 						ch:0
 					}
-					editor.replaceRange(`[Things](${thingsDeepLink})\n\n`, startRange, endRange);
+		//			editor.replaceRange(`[Things](${thingsDeepLink})\n\n`, startRange, endRange);
+					await metaedit.api.update("things_link", `[Things Project Link](${thingsDeepLink})`, this.app.workspace.getActiveFile());
+
 				}
 			}
 		});
