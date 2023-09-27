@@ -65,7 +65,7 @@ export default class ThingsLink extends Plugin {
 						ch:lines[h1Index].length
 					}
 		//			editor.replaceRange(`\n\n[Things](${thingsDeepLink})`, startRange, endRange);
-					await metaedit.api.update("things link", `[Things Project Link](${thingsDeepLink})`, this.app.workspace.getActiveFile());
+					await metaedit.api.update("things_link", `[Things Project Link](${thingsDeepLink})`, this.app.workspace.getActiveFile());
 				} else {
 						let startRange: EditorPosition = {
 						line: 0,
